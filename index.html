@@ -25,8 +25,11 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #1e293b 0%, transparent 50%);
             color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
@@ -47,20 +50,29 @@
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: var(--primary);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: float 20s infinite linear;
+            opacity: 0.4;
+            animation: float 25s infinite linear;
         }
 
         @keyframes float {
-            from {
-                transform: translateY(100vh) translateX(0);
+            0% {
+                transform: translateY(100vh) translateX(0px) scale(0);
+                opacity: 0;
             }
-            to {
-                transform: translateY(-100px) translateX(100px);
+            10% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(50px) scale(0);
+                opacity: 0;
             }
         }
 
@@ -69,9 +81,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -89,21 +101,8 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { 
-                filter: brightness(1) drop-shadow(0 0 5px rgba(99, 102, 241, 0.3)); 
-            }
-            50% { 
-                filter: brightness(1.2) drop-shadow(0 0 10px rgba(99, 102, 241, 0.5)); 
-            }
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         }
 
         .nav-links {
@@ -151,6 +150,7 @@
             color: var(--light);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
         }
 
         /* Conteneur principal */
@@ -183,21 +183,23 @@
         .hero h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary));
-            background-size: 200% 200%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--primary) 100%);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             color: transparent;
-            animation: gradient 5s ease infinite;
             font-weight: 700;
             line-height: 1.2;
+            animation: textShine 3s ease-in-out infinite;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes textShine {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero p {
@@ -212,19 +214,7 @@
         /* Sections */
         section {
             margin: 4rem 0;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
             scroll-margin-top: 80px;
-        }
-
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.4s; }
-        section:nth-child(4) { animation-delay: 0.6s; }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
         }
 
         h2 {
@@ -234,6 +224,7 @@
             position: relative;
             padding-bottom: 1rem;
             font-weight: 600;
+            color: var(--light);
         }
 
         h2::after {
@@ -257,15 +248,13 @@
         }
 
         .social-card {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
@@ -283,12 +272,12 @@
         }
 
         .social-card:hover::before,
-        .social-card:focus-within::before {
+        .social-card:focus::before {
             transform: translateX(0);
         }
 
         .social-card:hover,
-        .social-card:focus-within {
+        .social-card:focus {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
             border-color: var(--primary);
@@ -303,12 +292,21 @@
         .social-card h3 {
             margin-bottom: 0.5rem;
             font-weight: 600;
+            color: var(--light);
         }
 
         .social-card p {
             color: var(--gray);
             font-size: 0.9rem;
         }
+
+        /* Remplacements des emojis par du CSS */
+        .icon-facebook::before { content: "📘"; }
+        .icon-twitter::before { content: "🐦"; }
+        .icon-instagram::before { content: "📷"; }
+        .icon-deviantart::before { content: "🎨"; }
+        .icon-wattpad::before { content: "📖"; }
+        .icon-discord::before { content: "🎮"; }
 
         /* Fictions */
         .fictions-grid {
@@ -319,16 +317,13 @@
         }
 
         .fiction-card {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            height: fit-content;
         }
 
         .fiction-card::after {
@@ -392,15 +387,12 @@
         }
 
         .character-card {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             cursor: pointer;
-            height: fit-content;
         }
 
         .character-card:hover {
@@ -438,6 +430,7 @@
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
+            color: var(--light);
         }
 
         .character-role {
@@ -493,12 +486,11 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(15, 23, 42, 0.95);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
+                background: rgba(15, 23, 42, 0.98);
                 flex-direction: column;
                 padding: 1rem;
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
+                gap: 1rem;
             }
             
             .nav-links.active {
@@ -545,7 +537,7 @@
             }
         }
 
-        /* Focus states améliorés */
+        /* Focus states */
         .social-card:focus,
         .fiction-card:focus,
         .character-card:focus {
@@ -553,11 +545,19 @@
             outline-offset: 2px;
         }
 
-        /* Amélioration de la lisibilité */
-        .fiction-card p,
-        .character-info p {
-            line-height: 1.5;
+        /* Animation d'apparition progressive */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
         }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+        .fade-in:nth-child(5) { animation-delay: 0.5s; }
+        .fade-in:nth-child(6) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
@@ -592,33 +592,33 @@
         <section id="social">
             <h2>Mes Réseaux</h2>
             <div class="social-grid">
-                <div class="social-card" tabindex="0" role="button" aria-label="Facebook - @monprofil">
-                    <span class="social-icon" aria-hidden="true">📘</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Facebook - @monprofil">
+                    <span class="social-icon icon-facebook" aria-hidden="true"></span>
                     <h3>Facebook</h3>
                     <p>@monprofil</p>
                 </div>
-                <div class="social-card" tabindex="0" role="button" aria-label="Twitter/X - @moncompte">
-                    <span class="social-icon" aria-hidden="true">🐦</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Twitter/X - @moncompte">
+                    <span class="social-icon icon-twitter" aria-hidden="true"></span>
                     <h3>Twitter/X</h3>
                     <p>@moncompte</p>
                 </div>
-                <div class="social-card" tabindex="0" role="button" aria-label="Instagram - @moninstagram">
-                    <span class="social-icon" aria-hidden="true">📷</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Instagram - @moninstagram">
+                    <span class="social-icon icon-instagram" aria-hidden="true"></span>
                     <h3>Instagram</h3>
                     <p>@moninstagram</p>
                 </div>
-                <div class="social-card" tabindex="0" role="button" aria-label="DeviantArt - @monart">
-                    <span class="social-icon" aria-hidden="true">🎨</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="DeviantArt - @monart">
+                    <span class="social-icon icon-deviantart" aria-hidden="true"></span>
                     <h3>DeviantArt</h3>
                     <p>@monart</p>
                 </div>
-                <div class="social-card" tabindex="0" role="button" aria-label="Wattpad - @mesfictions">
-                    <span class="social-icon" aria-hidden="true">📖</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Wattpad - @mesfictions">
+                    <span class="social-icon icon-wattpad" aria-hidden="true"></span>
                     <h3>Wattpad</h3>
                     <p>@mesfictions</p>
                 </div>
-                <div class="social-card" tabindex="0" role="button" aria-label="Discord - MonPseudo#0000">
-                    <span class="social-icon" aria-hidden="true">🎮</span>
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Discord - MonPseudo#0000">
+                    <span class="social-icon icon-discord" aria-hidden="true"></span>
                     <h3>Discord</h3>
                     <p>MonPseudo#0000</p>
                 </div>
@@ -629,19 +629,19 @@
         <section id="fictions">
             <h2>Mes Fictions</h2>
             <div class="fictions-grid">
-                <article class="fiction-card">
+                <article class="fiction-card fade-in">
                     <h3 class="fiction-title">Les Chroniques de l'Aube</h3>
                     <span class="fiction-genre">Fantasy</span>
                     <p>Une épopée fantastique où la magie rencontre la technologie dans un monde en pleine transformation.</p>
                     <p><strong>Statut:</strong> En cours (12 chapitres)</p>
                 </article>
-                <article class="fiction-card">
+                <article class="fiction-card fade-in">
                     <h3 class="fiction-title">Échos du Futur</h3>
                     <span class="fiction-genre">Science-Fiction</span>
                     <p>Un voyage temporel aux conséquences inattendues qui menace l'existence même de l'humanité.</p>
                     <p><strong>Statut:</strong> Complété (25 chapitres)</p>
                 </article>
-                <article class="fiction-card">
+                <article class="fiction-card fade-in">
                     <h3 class="fiction-title">L'Ombre des Étoiles</h3>
                     <span class="fiction-genre">Space Opera</span>
                     <p>Une guerre intergalactique vue à travers les yeux d'un équipage de contrebandiers.</p>
@@ -654,7 +654,7 @@
         <section id="characters">
             <h2>Mes Personnages Originaux</h2>
             <div class="characters-grid">
-                <article class="character-card" tabindex="0">
+                <article class="character-card fade-in" tabindex="0">
                     <div class="character-image" aria-hidden="true">🗡️</div>
                     <div class="character-info">
                         <h3 class="character-name">Lyra Vesperian</h3>
@@ -667,7 +667,7 @@
                         </div>
                     </div>
                 </article>
-                <article class="character-card" tabindex="0">
+                <article class="character-card fade-in" tabindex="0">
                     <div class="character-image" aria-hidden="true">🔮</div>
                     <div class="character-info">
                         <h3 class="character-name">Zephyr Nox</h3>
@@ -680,7 +680,7 @@
                         </div>
                     </div>
                 </article>
-                <article class="character-card" tabindex="0">
+                <article class="character-card fade-in" tabindex="0">
                     <div class="character-image" aria-hidden="true">🚀</div>
                     <div class="character-info">
                         <h3 class="character-name">Captain Rex-7</h3>
@@ -693,7 +693,7 @@
                         </div>
                     </div>
                 </article>
-                <article class="character-card" tabindex="0">
+                <article class="character-card fade-in" tabindex="0">
                     <div class="character-image" aria-hidden="true">🌟</div>
                     <div class="character-info">
                         <h3 class="character-name">Nova Sterling</h3>
@@ -716,19 +716,19 @@
     </footer>
 
     <script>
-        // Génération des particules avec gestion d'erreur
+        // Génération des particules simplifiée
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             if (!particlesContainer) return;
             
-            const particleCount = window.innerWidth < 768 ? 30 : 50; // Moins de particules sur mobile
+            const particleCount = window.innerWidth < 768 ? 20 : 40;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
                 particlesContainer.appendChild(particle);
             }
         }
@@ -757,7 +757,7 @@
             });
         }
         
-        // Smooth scroll pour la navigation avec gestion d'erreur
+        // Smooth scroll
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -777,60 +777,16 @@
             });
         }
         
-        // Effet parallaxe optimisé
-        function initParallax() {
-            let ticking = false;
-            
-            function updateParallax() {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                if (hero && scrolled < window.innerHeight) {
-                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-                    hero.style.opacity = Math.max(0, 1 - scrolled / 600);
-                }
-                ticking = false;
-            }
-            
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(updateParallax);
-                    ticking = true;
-                }
-            });
-        }
-        
-        // Gestion des événements clavier pour les cartes
+        // Gestion des événements clavier
         function initKeyboardNavigation() {
             const interactiveCards = document.querySelectorAll('.social-card, .character-card');
             interactiveCards.forEach(card => {
                 card.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        card.click();
+                        // Ajouter ici la logique de clic si nécessaire
                     }
                 });
-            });
-        }
-        
-        // Observer pour les animations d'apparition
-        function initIntersectionObserver() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-            
-            document.querySelectorAll('section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(section);
             });
         }
         
@@ -840,12 +796,219 @@
             initMobileMenu();
             initSmoothScroll();
             initKeyboardNavigation();
+        });
+        
+        // Gestion des erreurs
+        window.addEventListener('error', function(e) {
+            console.warn('Erreur détectée:', e.error);
+        });
+        
+        // Optimisation resize
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                const particlesContainer = document.getElementById('particles');
+                if (particlesContainer) {
+                    particlesContainer.innerHTML = '';
+                    createParticles();
+                }
+            }, 250);
+        });
+
+        // Animation d'apparition au scroll (alternative à Intersection Observer)
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
             
-            // Vérifier si le navigateur supporte Intersection Observer
-            if ('IntersectionObserver' in window) {
-                initIntersectionObserver();
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Throttling pour l'event scroll
+        let scrollTimeout = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollTimeout) {
+                requestAnimationFrame(function() {
+                    handleScrollAnimations();
+                    scrollTimeout = false;
+                });
+                scrollTimeout = true;
             }
+        });
+
+        // Effet parallaxe léger pour le hero
+        function updateParallax() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             
-            // Initier le parallax seulement si prefers-reduced-motion n'est pas activé
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                initParallax();
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.2}px)`;
+            }
+        }
+
+        // Throttling pour le parallax
+        let parallaxTimeout = false;
+        window.addEventListener('scroll', function() {
+            if (!parallaxTimeout) {
+                requestAnimationFrame(function() {
+                    updateParallax();
+                    parallaxTimeout = false;
+                });
+                parallaxTimeout = true;
+            }
+        });
+
+        // Amélioration de l'accessibilité : navigation par touches
+        document.addEventListener('keydown', function(e) {
+            // Navigation avec les flèches dans les grilles
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || 
+                e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                
+                const focusedElement = document.activeElement;
+                if (focusedElement.classList.contains('social-card') || 
+                    focusedElement.classList.contains('character-card')) {
+                    
+                    const container = focusedElement.parentElement;
+                    const cards = Array.from(container.children);
+                    const currentIndex = cards.indexOf(focusedElement);
+                    let nextIndex = currentIndex;
+                    
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        nextIndex = (currentIndex + 1) % cards.length;
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        nextIndex = (currentIndex - 1 + cards.length) % cards.length;
+                    }
+                    
+                    if (nextIndex !== currentIndex) {
+                        e.preventDefault();
+                        cards[nextIndex].focus();
+                    }
+                }
+            }
+        });
+
+        // Gestion des liens externes (si ajoutés plus tard)
+        function handleExternalLinks() {
+            document.querySelectorAll('a[href^="http"]').forEach(link => {
+                if (!link.hostname.includes(window.location.hostname)) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+            });
+        }
+
+        // Performance : lazy loading pour les images (si ajoutées)
+        function initLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                                imageObserver.unobserve(img);
+                            }
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        }
+
+        // Préchargement des sections critiques
+        function preloadCriticalResources() {
+            // Précharger les polices importantes
+            if ('fonts' in document) {
+                document.fonts.load('700 1rem Inter').then(() => {
+                    document.body.classList.add('fonts-loaded');
+                });
+            }
+        }
+
+        // Theme switcher (pour une future fonctionnalité)
+        function initThemeSwitcher() {
+            // Détecter la préférence système
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Écouter les changements de préférence
+            prefersDark.addEventListener('change', (e) => {
+                if (e.matches) {
+                    document.body.setAttribute('data-theme', 'dark');
+                } else {
+                    document.body.setAttribute('data-theme', 'light');
+                }
+            });
+        }
+
+        // Mise à jour de l'initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fonctions de base
+            createParticles();
+            initMobileMenu();
+            initSmoothScroll();
+            initKeyboardNavigation();
+            
+            // Fonctions avancées
+            handleScrollAnimations();
+            handleExternalLinks();
+            initLazyLoading();
+            preloadCriticalResources();
+            initThemeSwitcher();
+            
+            // Déclencher l'animation initiale
+            setTimeout(() => {
+                handleScrollAnimations();
+            }, 100);
+        });
+
+        // Service Worker pour la mise en cache (optionnel)
+        if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+            window.addEventListener('load', () => {
+                // Décommenter si vous créez un service worker
+                /*
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+                */
+            });
+        }
+
+        // Analytics (placeholder pour Google Analytics ou autre)
+        function initAnalytics() {
+            // Exemple d'implémentation d'analytics respectueuse de la vie privée
+            if (typeof gtag === 'function') {
+                gtag('config', 'GA_MEASUREMENT_ID', {
+                    anonymize_ip: true,
+                    cookie_flags: 'SameSite=None;Secure'
+                });
+            }
+        }
+
+        // Debug mode pour le développement
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('🎨 Portfolio en mode développement');
+            
+            // Ajouter des outils de debug
+            window.portfolioDebug = {
+                recreateParticles: createParticles,
+                triggerAnimations: handleScrollAnimations,
+                toggleMobileMenu: function() {
+                    document.querySelector('.nav-links').classList.toggle('active');
+                }
+            };
+        }
+    </script>
+</body>
+</html>
