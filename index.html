@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio Créatif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -27,6 +30,7 @@
             color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Particules animées en arrière-plan */
@@ -65,11 +69,13 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 1rem 2rem;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -82,16 +88,22 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
             animation: glow 3s ease-in-out infinite;
         }
 
         @keyframes glow {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 5px rgba(99, 102, 241, 0.3)); 
+            }
+            50% { 
+                filter: brightness(1.2) drop-shadow(0 0 10px rgba(99, 102, 241, 0.5)); 
+            }
         }
 
         .nav-links {
@@ -106,6 +118,7 @@
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
+            font-weight: 500;
         }
 
         .nav-links a::after {
@@ -119,8 +132,25 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
             width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            color: var(--primary);
+            outline: none;
+        }
+
+        /* Menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         /* Conteneur principal */
@@ -151,13 +181,17 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary));
             background-size: 200% 200%;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
             animation: gradient 5s ease infinite;
+            font-weight: 700;
+            line-height: 1.2;
         }
 
         @keyframes gradient {
@@ -170,6 +204,9 @@
             font-size: 1.2rem;
             color: var(--gray);
             margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Sections */
@@ -177,6 +214,7 @@
             margin: 4rem 0;
             opacity: 0;
             animation: fadeIn 1s ease forwards;
+            scroll-margin-top: 80px;
         }
 
         section:nth-child(2) { animation-delay: 0.2s; }
@@ -190,11 +228,12 @@
         }
 
         h2 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 2rem;
             text-align: center;
             position: relative;
             padding-bottom: 1rem;
+            font-weight: 600;
         }
 
         h2::after {
@@ -212,7 +251,7 @@
         /* Réseaux sociaux */
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
@@ -226,6 +265,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
@@ -242,11 +282,13 @@
             transition: transform 0.5s ease;
         }
 
-        .social-card:hover::before {
+        .social-card:hover::before,
+        .social-card:focus-within::before {
             transform: translateX(0);
         }
 
-        .social-card:hover {
+        .social-card:hover,
+        .social-card:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
             border-color: var(--primary);
@@ -255,12 +297,23 @@
         .social-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            display: block;
+        }
+
+        .social-card h3 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .social-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
         }
 
         /* Fictions */
         .fictions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -271,9 +324,11 @@
             border-radius: 15px;
             padding: 1.5rem;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            height: fit-content;
         }
 
         .fiction-card::after {
@@ -294,14 +349,16 @@
         }
 
         .fiction-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             border-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
         }
 
         .fiction-title {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
+            font-weight: 600;
         }
 
         .fiction-genre {
@@ -312,12 +369,24 @@
             border-radius: 20px;
             font-size: 0.85rem;
             margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .fiction-card p {
+            margin-bottom: 0.75rem;
+            color: var(--light);
+        }
+
+        .fiction-card p:last-child {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0;
         }
 
         /* Personnages */
         .characters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -328,12 +397,14 @@
             border-radius: 15px;
             overflow: hidden;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             cursor: pointer;
+            height: fit-content;
         }
 
         .character-card:hover {
-            transform: translateY(-10px) rotateZ(-2deg);
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
         }
 
@@ -356,7 +427,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%);
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3) 100%);
         }
 
         .character-info {
@@ -366,13 +437,19 @@
         .character-name {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .character-role {
             color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 1rem;
+        }
+
+        .character-info p {
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-size: 0.95rem;
         }
 
         .character-traits {
@@ -387,6 +464,7 @@
             padding: 0.25rem 0.5rem;
             border-radius: 10px;
             font-size: 0.8rem;
+            font-weight: 500;
         }
 
         /* Footer */
@@ -398,31 +476,101 @@
             color: var(--gray);
         }
 
+        /* Accessibilité */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
             .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
             
-            h2 {
-                font-size: 2rem;
+            .nav-links.active {
+                display: flex;
             }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .container {
+                padding: 5rem 1rem 1rem;
+            }
+            
+            .social-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            
+            .social-card {
+                padding: 1.5rem;
+            }
+            
+            .fictions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 4rem 1rem 1rem;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Focus states améliorés */
+        .social-card:focus,
+        .fiction-card:focus,
+        .character-card:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Amélioration de la lisibilité */
+        .fiction-card p,
+        .character-info p {
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <!-- Particules animées -->
-    <div class="particles" id="particles"></div>
+    <div class="particles" id="particles" aria-hidden="true"></div>
 
     <!-- Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Navigation principale">
         <div class="nav-container">
             <div class="logo">Mon Portfolio</div>
+            <button class="mobile-menu-toggle" aria-label="Menu mobile" aria-expanded="false">
+                ☰
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#social">Réseaux</a></li>
@@ -433,7 +581,7 @@
     </nav>
 
     <!-- Contenu principal -->
-    <div class="container">
+    <main class="container">
         <!-- Hero Section -->
         <section id="home" class="hero">
             <h1>Créateur·trice d'Univers</h1>
@@ -444,33 +592,33 @@
         <section id="social">
             <h2>Mes Réseaux</h2>
             <div class="social-grid">
-                <div class="social-card">
-                    <div class="social-icon">📘</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="Facebook - @monprofil">
+                    <span class="social-icon" aria-hidden="true">📘</span>
                     <h3>Facebook</h3>
                     <p>@monprofil</p>
                 </div>
-                <div class="social-card">
-                    <div class="social-icon">🐦</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="Twitter/X - @moncompte">
+                    <span class="social-icon" aria-hidden="true">🐦</span>
                     <h3>Twitter/X</h3>
                     <p>@moncompte</p>
                 </div>
-                <div class="social-card">
-                    <div class="social-icon">📷</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="Instagram - @moninstagram">
+                    <span class="social-icon" aria-hidden="true">📷</span>
                     <h3>Instagram</h3>
                     <p>@moninstagram</p>
                 </div>
-                <div class="social-card">
-                    <div class="social-icon">🎨</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="DeviantArt - @monart">
+                    <span class="social-icon" aria-hidden="true">🎨</span>
                     <h3>DeviantArt</h3>
                     <p>@monart</p>
                 </div>
-                <div class="social-card">
-                    <div class="social-icon">📖</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="Wattpad - @mesfictions">
+                    <span class="social-icon" aria-hidden="true">📖</span>
                     <h3>Wattpad</h3>
                     <p>@mesfictions</p>
                 </div>
-                <div class="social-card">
-                    <div class="social-icon">🎮</div>
+                <div class="social-card" tabindex="0" role="button" aria-label="Discord - MonPseudo#0000">
+                    <span class="social-icon" aria-hidden="true">🎮</span>
                     <h3>Discord</h3>
                     <p>MonPseudo#0000</p>
                 </div>
@@ -481,24 +629,24 @@
         <section id="fictions">
             <h2>Mes Fictions</h2>
             <div class="fictions-grid">
-                <div class="fiction-card">
+                <article class="fiction-card">
                     <h3 class="fiction-title">Les Chroniques de l'Aube</h3>
                     <span class="fiction-genre">Fantasy</span>
                     <p>Une épopée fantastique où la magie rencontre la technologie dans un monde en pleine transformation.</p>
                     <p><strong>Statut:</strong> En cours (12 chapitres)</p>
-                </div>
-                <div class="fiction-card">
+                </article>
+                <article class="fiction-card">
                     <h3 class="fiction-title">Échos du Futur</h3>
                     <span class="fiction-genre">Science-Fiction</span>
                     <p>Un voyage temporel aux conséquences inattendues qui menace l'existence même de l'humanité.</p>
                     <p><strong>Statut:</strong> Complété (25 chapitres)</p>
-                </div>
-                <div class="fiction-card">
+                </article>
+                <article class="fiction-card">
                     <h3 class="fiction-title">L'Ombre des Étoiles</h3>
                     <span class="fiction-genre">Space Opera</span>
                     <p>Une guerre intergalactique vue à travers les yeux d'un équipage de contrebandiers.</p>
                     <p><strong>Statut:</strong> En pause (8 chapitres)</p>
-                </div>
+                </article>
             </div>
         </section>
 
@@ -506,8 +654,8 @@
         <section id="characters">
             <h2>Mes Personnages Originaux</h2>
             <div class="characters-grid">
-                <div class="character-card">
-                    <div class="character-image">🗡️</div>
+                <article class="character-card" tabindex="0">
+                    <div class="character-image" aria-hidden="true">🗡️</div>
                     <div class="character-info">
                         <h3 class="character-name">Lyra Vesperian</h3>
                         <p class="character-role">Protagoniste - Les Chroniques de l'Aube</p>
@@ -518,9 +666,9 @@
                             <span class="trait">Mystérieuse</span>
                         </div>
                     </div>
-                </div>
-                <div class="character-card">
-                    <div class="character-image">🔮</div>
+                </article>
+                <article class="character-card" tabindex="0">
+                    <div class="character-image" aria-hidden="true">🔮</div>
                     <div class="character-info">
                         <h3 class="character-name">Zephyr Nox</h3>
                         <p class="character-role">Antagoniste - Les Chroniques de l'Aube</p>
@@ -531,9 +679,9 @@
                             <span class="trait">Impitoyable</span>
                         </div>
                     </div>
-                </div>
-                <div class="character-card">
-                    <div class="character-image">🚀</div>
+                </article>
+                <article class="character-card" tabindex="0">
+                    <div class="character-image" aria-hidden="true">🚀</div>
                     <div class="character-info">
                         <h3 class="character-name">Captain Rex-7</h3>
                         <p class="character-role">Héros - Échos du Futur</p>
@@ -544,9 +692,9 @@
                             <span class="trait">Évolutif</span>
                         </div>
                     </div>
-                </div>
-                <div class="character-card">
-                    <div class="character-image">🌟</div>
+                </article>
+                <article class="character-card" tabindex="0">
+                    <div class="character-image" aria-hidden="true">🌟</div>
                     <div class="character-info">
                         <h3 class="character-name">Nova Sterling</h3>
                         <p class="character-role">Pilote - L'Ombre des Étoiles</p>
@@ -557,10 +705,10 @@
                             <span class="trait">Ingénieuse</span>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -568,10 +716,12 @@
     </footer>
 
     <script>
-        // Génération des particules
+        // Génération des particules avec gestion d'erreur
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+            if (!particlesContainer) return;
+            
+            const particleCount = window.innerWidth < 768 ? 30 : 50; // Moins de particules sur mobile
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -583,39 +733,119 @@
             }
         }
         
-        createParticles();
+        // Menu mobile
+        function initMobileMenu() {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const menu = document.querySelector('.nav-links');
+            
+            if (!toggle || !menu) return;
+            
+            toggle.addEventListener('click', function() {
+                const isOpen = menu.classList.contains('active');
+                menu.classList.toggle('active');
+                toggle.setAttribute('aria-expanded', !isOpen);
+                toggle.textContent = isOpen ? '☰' : '✕';
+            });
+            
+            // Fermer le menu quand on clique sur un lien
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.textContent = '☰';
+                });
+            });
+        }
         
-        // Smooth scroll pour la navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Smooth scroll pour la navigation avec gestion d'erreur
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = target.offsetTop - navHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Effet parallaxe optimisé
+        function initParallax() {
+            let ticking = false;
+            
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero && scrolled < window.innerHeight) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    hero.style.opacity = Math.max(0, 1 - scrolled / 600);
+                }
+                ticking = false;
+            }
+            
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateParallax);
+                    ticking = true;
                 }
             });
-        });
+        }
         
-        // Animation des cartes au survol
-        const cards = document.querySelectorAll('.social-card, .fiction-card, .character-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = this.style.transform || '';
+        // Gestion des événements clavier pour les cartes
+        function initKeyboardNavigation() {
+            const interactiveCards = document.querySelectorAll('.social-card, .character-card');
+            interactiveCards.forEach(card => {
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
             });
-        });
+        }
         
-        // Effet parallaxe léger sur le hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - scrolled / 600;
+        // Observer pour les animations d'apparition
+        function initIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initMobileMenu();
+            initSmoothScroll();
+            initKeyboardNavigation();
+            
+            // Vérifier si le navigateur supporte Intersection Observer
+            if ('IntersectionObserver' in window) {
+                initIntersectionObserver();
             }
-        });
-    </script>
-</body>
-</html>
+            
+            // Initier le parallax seulement si prefers-reduced-motion n'est pas activé
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                initParallax();
