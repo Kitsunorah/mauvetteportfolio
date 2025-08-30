@@ -1,24 +1,3 @@
- <script>
-
-        function copyDiscord() {
-    navigator.clipboard.writeText('kitsumiro').then(() => {
-        const card = event.currentTarget;
-        const originalHTML = card.innerHTML;
-        card.style.background = 'rgba(99, 102, 241, 0.2)';
-        
-        // Ajoute le message "Copié!"
-        const notification = document.createElement('span');
-        notification.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 10px; font-size: 0.9rem; z-index: 10;';
-        notification.textContent = 'Copié !';
-        card.appendChild(notification);
-        
-        // Retire le message après 2 secondes
-        setTimeout(() => {
-            card.style.background = '';
-            notification.remove();
-        }, 2000);
-    });
-}
        /**
  * Portfolio Créatif - Script Principal
  * Optimisé pour GitHub Pages et performance
@@ -51,6 +30,25 @@ const AppState = {
     isScrolling: false
 };
 
+function copyDiscord() {
+    navigator.clipboard.writeText('kitsumiro').then(() => {
+        const card = event.currentTarget;
+        const originalHTML = card.innerHTML;
+        card.style.background = 'rgba(99, 102, 241, 0.2)';
+        
+        // Ajoute le message "Copié!"
+        const notification = document.createElement('span');
+        notification.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 10px; font-size: 0.9rem; z-index: 10;';
+        notification.textContent = 'Copié !';
+        card.appendChild(notification);
+        
+        // Retire le message après 2 secondes
+        setTimeout(() => {
+            card.style.background = '';
+            notification.remove();
+        }, 2000);
+    });
+}
 /**
  * Gestion des particules d'arrière-plan
  */
