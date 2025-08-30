@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mauvette's portfolio</title>
+    <meta name="description" content="RGG Fiction Writer - Full of OC, crossovers, sfw or not">
+    <meta name="keywords" content="portfolio, fiction, RGG, yakuza, characters, writing">
+    <meta name="author" content="Mauvette">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Mauvette's Portfolio">
+    <meta property="og:description" content="RGG Fiction Writer - Welcome to my twisted view of the RGG's world">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon (évite l'erreur 404) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+    
+    <!-- Preconnect pour les polices -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -120,6 +135,10 @@
             font-weight: 500;
         }
 
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -132,7 +151,8 @@
         }
 
         .nav-links a:hover::after,
-        .nav-links a:focus::after {
+        .nav-links a:focus::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -151,6 +171,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: scale(1.1);
         }
 
         /* Conteneur principal */
@@ -184,10 +209,11 @@
             font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--primary) 100%);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
+            color: var(--primary); /* Fallback */
             font-weight: 700;
             line-height: 1.2;
             animation: textShine 3s ease-in-out infinite;
@@ -257,6 +283,9 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .social-card::before {
@@ -300,12 +329,13 @@
             font-size: 0.9rem;
         }
 
-        /* Remplacements des emojis par du CSS */
+        /* Icônes des réseaux sociaux */
         .icon-twitter::before { content: "🐦"; }
         .icon-instagram::before { content: "📷"; }
         .icon-deviantart::before { content: "🎨"; }
         .icon-wattpad::before { content: "📖"; }
         .icon-discord::before { content: "🎮"; }
+        .icon-ao3::before { content: "📚"; }
 
         /* Fictions */
         .fictions-grid {
@@ -548,19 +578,24 @@
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        .fade-in:nth-child(1) { animation-delay: 0.1s; }
-        .fade-in:nth-child(2) { animation-delay: 0.2s; }
-        .fade-in:nth-child(3) { animation-delay: 0.3s; }
-        .fade-in:nth-child(4) { animation-delay: 0.4s; }
-        .fade-in:nth-child(5) { animation-delay: 0.5s; }
-        .fade-in:nth-child(6) { animation-delay: 0.6s; }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Délais d'animation */
+        .fade-in:nth-child(1) { transition-delay: 0.1s; }
+        .fade-in:nth-child(2) { transition-delay: 0.2s; }
+        .fade-in:nth-child(3) { transition-delay: 0.3s; }
+        .fade-in:nth-child(4) { transition-delay: 0.4s; }
+        .fade-in:nth-child(5) { transition-delay: 0.5s; }
+        .fade-in:nth-child(6) { transition-delay: 0.6s; }
     </style>
 </head>
 <body>
-    <script src="js/script.js"></script>
     <!-- Particules animées -->
     <div class="particles" id="particles" aria-hidden="true"></div>
 
@@ -589,40 +624,34 @@
         </section>
 
         <!-- Réseaux Sociaux -->
-  <section id="social">
-    <h2>My Socials</h2>
-    <div class="social-grid">
-        <a href="https://x.com/MauvetteNorah" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="social-card fade-in" tabindex="0" role="button" aria-label="Twitter/X - @MauvetteNorah">
-                <span class="social-icon icon-twitter" aria-hidden="true"></span>
-                <h3>Twitter/X</h3>
-                <p>@MauvetteNorah</p>
+        <section id="social">
+            <h2>My Socials</h2>
+            <div class="social-grid">
+                <a href="https://x.com/MauvetteNorah" target="_blank" rel="noopener noreferrer" class="social-card fade-in" aria-label="Twitter/X - @MauvetteNorah">
+                    <span class="social-icon icon-twitter" aria-hidden="true"></span>
+                    <h3>Twitter/X</h3>
+                    <p>@MauvetteNorah</p>
+                </a>
+                
+                <a href="https://archiveofourown.org/users/KitsuMauvette" target="_blank" rel="noopener noreferrer" class="social-card fade-in" aria-label="AO3 - KitsuMauvette">
+                    <span class="social-icon icon-ao3" aria-hidden="true"></span>
+                    <h3>AO3</h3>
+                    <p>KitsuMauvette</p>
+                </a>
+                
+                <a href="https://www.wattpad.com/user/KitsuMauvette" target="_blank" rel="noopener noreferrer" class="social-card fade-in" aria-label="Wattpad - KitsuMauvette">
+                    <span class="social-icon icon-wattpad" aria-hidden="true"></span>
+                    <h3>Wattpad</h3>
+                    <p>KitsuMauvette</p>
+                </a>
+                
+                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Discord - kitsumiro (cliquez pour copier)" onclick="copyDiscord()">
+                    <span class="social-icon icon-discord" aria-hidden="true"></span>
+                    <h3>Discord</h3>
+                    <p>kitsumiro</p>
+                </div>
             </div>
-        </a>
-        
-        <a href="https://archiveofourown.org/users/KitsuMauvette" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="social-card fade-in" tabindex="0" role="button" aria-label="AO3 - KitsuMauvette">
-                <span class="social-icon icon-deviantart" aria-hidden="true"></span>
-                <h3>AO3</h3>
-                <p>KitsuMauvette</p>
-            </div>
-        </a>
-        
-        <a href="https://www.wattpad.com/user/KitsuMauvette" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="social-card fade-in" tabindex="0" role="button" aria-label="Wattpad - KitsuMauvette">
-                <span class="social-icon icon-wattpad" aria-hidden="true"></span>
-                <h3>Wattpad</h3>
-                <p>KitsuMauvette</p>
-            </div>
-        </a>
-        <div class="social-card fade-in" tabindex="0" role="button" aria-label="Discord - kitsumiro" 
-     onclick="copyDiscord()" style="cursor: pointer; position: relative;">
-    <span class="social-icon icon-discord" aria-hidden="true"></span>
-    <h3>Discord</h3>
-    <p>kitsumiro</p>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- Fictions -->
         <section id="fictions">
@@ -651,18 +680,18 @@
 
         <!-- Personnages -->
         <section id="characters">
-            <h2>Originals Characters</h2>
+            <h2>Original Characters</h2>
             <div class="characters-grid">
                 <article class="character-card fade-in" tabindex="0">
                     <div class="character-image" aria-hidden="true">🐦‍🔥</div>
                     <div class="character-info">
                         <h3 class="character-name">Amaël "Suzu" Nijima</h3>
-                        <p class="character-role"> Hakuho's Phoenix</p>
-                        <p>An exuberant character. His heart belong to two men, and it will break him.</p>
+                        <p class="character-role">Hakuho's Phoenix</p>
+                        <p>An exuberant character. His heart belongs to two men, and it will break him.</p>
                         <div class="character-traits">
                             <span class="trait">Bratty</span>
                             <span class="trait">Noisy</span>
-                            <span class="trait">Toremented</span>
+                            <span class="trait">Tormented</span>
                         </div>
                     </div>
                 </article>
@@ -671,7 +700,7 @@
                     <div class="character-info">
                         <h3 class="character-name">Ryujin Dojima</h3>
                         <p class="character-role">Heir of the Tojo Clan</p>
-                        <p>Born with too much responsibilities on his shoulders.</p>
+                        <p>Born with too many responsibilities on his shoulders.</p>
                         <div class="character-traits">
                             <span class="trait">Proud</span>
                             <span class="trait">Determined</span>
@@ -697,7 +726,7 @@
                     <div class="character-info">
                         <h3 class="character-name">Ren Mine</h3>
                         <p class="character-role">Broken son of the Kirin</p>
-                        <p>Born broken, burned to the core, still bearing of golden heart.</p>
+                        <p>Born broken, burned to the core, still bearing a golden heart.</p>
                         <div class="character-traits">
                             <span class="trait">Kind</span>
                             <span class="trait">Intelligent</span>
@@ -711,7 +740,10 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Mon Portfolio Créatif - Tous droits réservés</p>
+        <p>&copy; 2025 Mauvette's Portfolio - All rights reserved</p>
     </footer>
+
+    <!-- Script chargé à la fin -->
+    <script src="js/script.js"></script>
 </body>
 </html>
