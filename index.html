@@ -588,31 +588,40 @@
         </section>
 
         <!-- Réseaux Sociaux -->
-        <section id="social">
-            <h2>My Socials</h2>
-            <div class="social-grid">
-                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Twitter/X - @moncompte">
-                    <span class="social-icon icon-twitter" aria-hidden="true"></span>
-                    <h3>Twitter/X</h3>
-                    <p>@MauvetteNorah</p>
-                </div>
-                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Wattpad - @monart">
-                    <span class="social-icon icon-deviantart" aria-hidden="true"></span>
-                    <h3>A03</h3>
-                    <p>KitsuMauvette</p>
-                </div>
-                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Wattpad - @mesfictions">
-                    <span class="social-icon icon-wattpad" aria-hidden="true"></span>
-                    <h3>Wattpad</h3>
-                    <p>KitsuMauvette</p>
-                </div>
-                <div class="social-card fade-in" tabindex="0" role="button" aria-label="Discord - MonPseudo#0000">
-                    <span class="social-icon icon-discord" aria-hidden="true"></span>
-                    <h3>Discord</h3>
-                    <p>kitsumiro</p>
-                </div>
+  <section id="social">
+    <h2>My Socials</h2>
+    <div class="social-grid">
+        <a href="https://x.com/MauvetteNorah" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="social-card fade-in" tabindex="0" role="button" aria-label="Twitter/X - @MauvetteNorah">
+                <span class="social-icon icon-twitter" aria-hidden="true"></span>
+                <h3>Twitter/X</h3>
+                <p>@MauvetteNorah</p>
             </div>
-        </section>
+        </a>
+        
+        <a href="https://archiveofourown.org/users/KitsuMauvette" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="social-card fade-in" tabindex="0" role="button" aria-label="AO3 - KitsuMauvette">
+                <span class="social-icon icon-deviantart" aria-hidden="true"></span>
+                <h3>AO3</h3>
+                <p>KitsuMauvette</p>
+            </div>
+        </a>
+        
+        <a href="https://www.wattpad.com/user/KitsuMauvette" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="social-card fade-in" tabindex="0" role="button" aria-label="Wattpad - KitsuMauvette">
+                <span class="social-icon icon-wattpad" aria-hidden="true"></span>
+                <h3>Wattpad</h3>
+                <p>KitsuMauvette</p>
+            </div>
+        </a>
+        <div class="social-card fade-in" tabindex="0" role="button" aria-label="Discord - kitsumiro" 
+     onclick="copyDiscord()" style="cursor: pointer; position: relative;">
+    <span class="social-icon icon-discord" aria-hidden="true"></span>
+    <h3>Discord</h3>
+    <p>kitsumiro</p>
+        </div>
+    </div>
+</section>
 
         <!-- Fictions -->
         <section id="fictions">
@@ -705,6 +714,26 @@
     </footer>
 
     <script>
+
+        function copyDiscord() {
+    navigator.clipboard.writeText('kitsumiro').then(() => {
+        const card = event.currentTarget;
+        const originalHTML = card.innerHTML;
+        card.style.background = 'rgba(99, 102, 241, 0.2)';
+        
+        // Ajoute le message "Copié!"
+        const notification = document.createElement('span');
+        notification.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 10px; font-size: 0.9rem; z-index: 10;';
+        notification.textContent = 'Copié !';
+        card.appendChild(notification);
+        
+        // Retire le message après 2 secondes
+        setTimeout(() => {
+            card.style.background = '';
+            notification.remove();
+        }, 2000);
+    });
+}
         // Génération des particules simplifiée
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
