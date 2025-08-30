@@ -8,7 +8,7 @@ function copyDiscord() {
     
     if (navigator.clipboard) {
         navigator.clipboard.writeText(discordUsername).then(() => {
-            showNotification('Discord copié dans le presse-papier ! 📋');
+            showNotification('Discord handle copied ! 📋');
         }).catch(() => {
             showNotification(`Discord: ${discordUsername} (copie manuelle nécessaire)`);
         });
