@@ -1,4 +1,70 @@
 /**
+ * Fonctions globales pour l'interface
+ */
+
+// Fonction pour copier le Discord (appelée depuis le HTML)
+function copyDiscord() {
+    const discordUsername = 'kitsumiro';
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(discordUsername).then(() => {
+            showNotification('Discord copié dans le presse-papier ! 📋');
+        }).catch(() => {
+            showNotification(`Discord: ${discordUsername} (copie manuelle nécessaire)`);
+        });
+    } else {
+        // Fallback pour navigateurs anciens
+        showNotification(`Discord: ${discordUsername} (copiez manuellement)`);
+    }
+}
+
+// Fonction pour afficher les notifications
+function showNotification(message) {
+    // Supprimer une notification existante
+    const existing = document.querySelector('.portfolio-notification');
+    if (existing) {
+        existing.remove();
+    }
+
+    // Créer la nouvelle notification
+    const notification = document.createElement('div');
+    notification.className = 'portfolio-notification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        font-weight: 500;
+        max-width: 300px;
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Animation de sortie après 3 secondes
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+/**
  * Portfolio Créatif - Script Principal
  * Optimisé pour GitHub Pages et performance
  */
