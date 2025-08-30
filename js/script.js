@@ -3,6 +3,14 @@
  * Optimisé pour GitHub Pages et performance
  */
 
+// Attendre que le DOM soit complètement chargé
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎨 DOM prêt, initialisation du Portfolio...');
+    
+    // Initialiser l'application
+    const app = new PortfolioApp();
+});
+
 // Configuration globale
 const CONFIG = {
     particles: {
@@ -657,13 +665,8 @@ class PortfolioApp {
         console.log('🎨 Initialisation du Portfolio...');
 
         try {
-            // Attendre que le DOM soit prêt
-            if (document.readyState === 'loading') {
-                await new Promise(resolve => {
-                    document.addEventListener('DOMContentLoaded', resolve);
-                });
-            }
-
+            // Le DOM est déjà prêt grâce au DOMContentLoaded
+            
             // Initialiser les managers
             this.managers.error = new ErrorManager();
             this.managers.particles = new ParticleManager();
@@ -832,11 +835,13 @@ if (window.location.hostname === 'localhost' ||
 /**
  * Initialisation de l'application
  */
-const app = new PortfolioApp();
+// L'app sera initialisée par le DOMContentLoaded au début du fichier
 
 // Nettoyage lors de la fermeture de la page
 window.addEventListener('beforeunload', () => {
-    app.cleanup();
+    if (window.portfolioApp) {
+        window.portfolioApp.cleanup();
+    }
 });
 
 // Export pour usage externe (si nécessaire)
